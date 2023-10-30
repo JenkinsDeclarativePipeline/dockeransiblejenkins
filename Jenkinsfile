@@ -8,6 +8,7 @@ pipeline
             customWorkspace '/home/jenkins/workspace/dockerjenkins'
         }
     }
+
     stages
     {
         stage('SCM ceckout')
@@ -17,6 +18,18 @@ pipeline
                 checkout scmGit(branches: [[name: '*/master']], 
                 extensions: [], userRemoteConfigs: [[credentialsId: 'JenkinsDeclarativePipeline', 
                 url: 'https://github.com/JenkinsDeclarativePipeline/dockeransiblejenkins.git']])
+            }
+        }
+        stage('Maven Build')
+        {
+            tools
+            {
+                maven 'mvn-3.9.5'
+            }
+            steps
+            {
+                sh 'pwd;ls -lrt'
+                sh 'mvn clean package'                
             }
         }
     }
