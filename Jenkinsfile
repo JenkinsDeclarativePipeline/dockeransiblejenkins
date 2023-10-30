@@ -53,7 +53,26 @@ pipeline
         }
         stage('Docker Push')
         {
-            /*agent
+            
+            steps
+            {               
+                withCredentials([string(credentialsId: 'slack-cred', variable: 'docker_secret')]) 
+                {
+                    sh "docker login -u uriyapraba -p ${docker_secret}"
+                }
+                    sh "docker push uriyapraba/tomcat:${docker_tag}"   
+            }
+        }
+    }
+}
+//Getting commitID short head and retrun the value to environment for docker build image
+def getVersion()
+{
+   def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+   return commitHash
+}
+
+/*agent
             {
                 docker
                 {
@@ -67,20 +86,8 @@ pipeline
             {
                 echo "===Pushing docker image success====="
             }*/
-            steps
-            {
-                withDockerRegistry(credentialsId: 'docker_hub', url: 'https://hub.docker.com/') 
+
+ /*withDockerRegistry(credentialsId: 'docker_hub', url: 'https://hub.docker.com/') 
                 {
                     sh "docker push uriyapraba/tomcat:${docker_tag}" 
-                }
-                   
-            }
-        }
-    }
-}
-//Getting commitID short head and retrun the value to environment for docker build image
-def getVersion()
-{
-   def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
-   return commitHash
-}
+                }*/
