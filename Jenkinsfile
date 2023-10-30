@@ -53,7 +53,7 @@ pipeline
         }
         stage('Docker Push')
         {
-            agent
+            /*agent
             {
                 docker
                 {
@@ -66,6 +66,14 @@ pipeline
             steps
             {
                 echo "===Pushing docker image success====="
+            }*/
+            steps
+            {
+                withDockerRegistry(credentialsId: 'docker_hub', url: 'https://hub.docker.com/') 
+                {
+                    sh "docker push uriyapraba/tomcat:${docker_tag}" 
+                }
+                   
             }
         }
     }
