@@ -51,6 +51,19 @@ pipeline
                 sh "docker build . -t uriyapraba/tomcat:${docker_tag}"
             }   
         }
+        stage('Docker Push')
+        {
+            agent
+            {
+                docker
+                {
+                    image "uriyapraba/tomcat:${docker_tag}"
+                    label 'docker'
+                    registryUrl 'https://hub.docker.com/'
+                    registryCredentialsId 'docker_hub'
+                }
+            }
+        }
     }
 }
 //Getting commitID short head and retrun the value to environment for docker build image
