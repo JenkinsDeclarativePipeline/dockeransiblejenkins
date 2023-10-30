@@ -58,7 +58,7 @@ pipeline
                 docker
                 {
                     image "uriyapraba/tomcat:${docker_tag}"
-                    label 'docker'
+                    //label 'docker'
                     registryUrl 'https://hub.docker.com/'
                     registryCredentialsId 'docker_hub'
                 }
