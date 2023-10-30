@@ -63,6 +63,10 @@ pipeline
                     registryCredentialsId 'docker_hub'
                 }
             }
+            steps
+            {
+                echo "===Pushing docker image success====="
+            }
         }
     }
 }
