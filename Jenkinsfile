@@ -44,10 +44,11 @@ pipeline
             }*/
             steps
             {
-                script
+                /*script
                 {
                     docker.build('uriyapraba/tomcat:"${docker_tag}"')
-                }
+                }*/
+                sh "docker build . -t uriyapraba/tomcat:${docker_tag}"
             }   
         }
     }
