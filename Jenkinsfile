@@ -46,7 +46,7 @@ pipeline
             {
                 script
                 {
-                    docker.build("uriyapraba/tomcat:${docker_tag}")
+                    docker.build('uriyapraba/tomcat:"${docker_tag}"')
                 }
             }   
         }
