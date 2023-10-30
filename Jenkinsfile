@@ -56,7 +56,7 @@ pipeline
             
             steps
             {               
-                withCredentials([string(credentialsId: 'slack-cred', variable: 'docker_secret')]) 
+                withCredentials([string(credentialsId: 'dockerhub_secret', variable: 'docker_secret')]) 
                 {
                     sh "docker login -u uriyapraba -p ${docker_secret}"
                 }
