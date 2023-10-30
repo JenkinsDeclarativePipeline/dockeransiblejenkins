@@ -32,5 +32,12 @@ pipeline
                 sh 'mvn clean package'                
             }
         }
+        stage('Docker build')
+        {
+            steps
+            {
+                sh 'docker --version'
+            }
+        }
     }
 }
