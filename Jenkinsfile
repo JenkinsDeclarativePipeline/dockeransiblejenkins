@@ -38,7 +38,14 @@ pipeline
             {
                 sh 'docker --version'
             }*/
-            docker.build('uriyapraba/tomcat:0.0.1')
+            steps
+            {
+                script
+                {
+                    docker.build('uriyapraba/tomcat:0.0.1')
+                }
+            }
+            
         }
     }
 }
