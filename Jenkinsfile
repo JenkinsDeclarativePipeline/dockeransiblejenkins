@@ -53,15 +53,30 @@ pipeline
         }
         stage('Docker Push')
         {
-            
+            agent
+            {
+                docker
+                {
+                    image "uriyapraba/tomcat:${docker_tag}"
+                    //label 'docker'
+                    registryUrl 'https://quay.io/'
+                    registryCredentialsId 'quay.io'
+                }
+            }
             steps
+            {
+                sh "docker push uriyapraba/tomcat:${docker_tag}"
+                echo "===Pushing docker image success====="
+            }
+            
+            /*steps
             {               
                 withCredentials([string(credentialsId: 'dockerhub_secret', variable: 'docker_secret')]) 
                 {
                     sh "docker login -u uriyapraba -p ${docker_secret}"
                 }
                     sh "docker push uriyapraba/tomcat:${docker_tag}"   
-            }
+            }*/
         }
     }
 }
@@ -78,8 +93,8 @@ def getVersion()
                 {
                     image "uriyapraba/tomcat:${docker_tag}"
                     //label 'docker'
-                    registryUrl 'https://hub.docker.com/'
-                    registryCredentialsId 'docker_hub'
+                    registryUrl 'https://quay.io/'
+                    registryCredentialsId 'quay.io'
                 }
             }
             steps
