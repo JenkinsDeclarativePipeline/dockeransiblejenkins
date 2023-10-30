@@ -34,10 +34,11 @@ pipeline
         }
         stage('Docker build')
         {
-            steps
+            /*steps
             {
                 sh 'docker --version'
-            }
+            }*/
+            docker.build('uriyapraba/tomcat:0.0.1')
         }
     }
 }
