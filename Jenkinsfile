@@ -8,6 +8,10 @@ pipeline
             customWorkspace '/home/jenkins/workspace/dockerjenkins'
         }
     }
+    environment
+    {
+        docker_tag = getVersion()
+    }
 
     stages
     {
@@ -42,10 +46,15 @@ pipeline
             {
                 script
                 {
-                    docker.build('uriyapraba/tomcat:0.0.1')
+                    docker.build("uriyapraba/tomcat:${docker_tag}")
                 }
-            }
-            
+            }   
         }
     }
+}
+//Getting commitID short head and retrun the value to environment for docker build image
+def getVersion()
+{
+   def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+   return commitHash
 }
